@@ -1,6 +1,5 @@
 package com.innowise.fileapi.controller;
 
-import com.innowise.fileapi.repository.ResourceRepository;
 import com.innowise.fileapi.service.impl.SongServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.core.io.InputStreamResource;
@@ -33,9 +32,8 @@ public class SongController {
     }
 
     @GetMapping("/download")
-    public ResponseEntity<Resource> downloadFile(@RequestParam String id1) {
+    public ResponseEntity<Resource> downloadFile(@RequestParam Long id) {
         try {
-            var id = "D:\\Innowise\\song-service\\file-api\\src\\main\\java\\com\\innowise\\fileapi\\upload\\docker-compose.yml";
             var downloadedFile = songService.downloadSong(id);
             return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + downloadedFile.getFileName())
                     .contentLength(downloadedFile.getContentLength()).contentType(MediaType.APPLICATION_OCTET_STREAM)

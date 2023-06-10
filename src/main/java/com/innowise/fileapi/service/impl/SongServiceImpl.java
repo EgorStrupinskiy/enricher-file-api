@@ -22,20 +22,20 @@ public class SongServiceImpl implements SongService {
         try {
             var uploadedSong = s3Service.upload(file);
             repository.save(uploadedSong);
-            return ResponseEntity.ok("File saved in S3, key = " + uploadedSong.getFilePath());
+            return ResponseEntity.ok("File saved in S3, id = " + uploadedSong.getId());
         } catch (Exception e) {
             var uploadedSong = localStorageService.upload(file);
             repository.save(uploadedSong);
-            return ResponseEntity.ok("File saved locally, id = " + uploadedSong.getFilePath());
+            return ResponseEntity.ok("File saved locally, id = " + uploadedSong.getId());
         }
     }
 
     @Override
-    public DownloadedFile downloadSong(String key) {
+    public DownloadedFile downloadSong(Long id) {
         try {
-            var song = repository.findByFilePath(key).orElseThrow(() -> new RuntimeException("There is no file with this key"));
+            var song = repository.findById(id).orElseThrow(() -> new RuntimeException("There is no file with this id"));
             if (song.getStorageType().equals("S3")) {
-                return s3Service.download(key);
+                return s3Service.download(song.getFilePath());
             } else {
                 return localStorageService.download(song);
             }
