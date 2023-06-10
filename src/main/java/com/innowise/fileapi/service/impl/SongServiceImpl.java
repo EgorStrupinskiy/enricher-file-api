@@ -1,5 +1,6 @@
 package com.innowise.fileapi.service.impl;
 
+import com.innowise.fileapi.model.DownloadedFile;
 import com.innowise.fileapi.repository.ResourceRepository;
 import com.innowise.fileapi.service.LocalStorageService;
 import com.innowise.fileapi.service.S3Service;
@@ -19,11 +20,27 @@ public class SongServiceImpl implements SongService {
     @Override
     public ResponseEntity<String> addSong(MultipartFile file) {
         try {
-            s3Service.uploadFile(file);
-            return ResponseEntity.ok("S3");
+            var uploadedSong = s3Service.upload(file);
+            repository.save(uploadedSong);
+            return ResponseEntity.ok("File saved in S3, key = " + uploadedSong.getFilePath());
         } catch (Exception e) {
-            localStorageService.uploadFile(file);
-            return ResponseEntity.ok("Locally");
+            var uploadedSong = localStorageService.upload(file);
+            repository.save(uploadedSong);
+            return ResponseEntity.ok("File saved locally, id = " + uploadedSong.getFilePath());
+        }
+    }
+
+    @Override
+    public DownloadedFile downloadSong(String key) {
+        try {
+            var song = repository.findByFilePath(key).orElseThrow(() -> new RuntimeException("There is no file with this key"));
+            if (song.getStorageType().equals("S3")) {
+                return s3Service.download(key);
+            } else {
+                return localStorageService.download(song);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error while uploading a file");
         }
     }
 }
