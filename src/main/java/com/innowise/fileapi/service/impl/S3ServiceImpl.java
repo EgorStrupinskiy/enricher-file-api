@@ -6,6 +6,7 @@ import com.amazonaws.services.s3.model.S3Object;
 import com.innowise.fileapi.entity.Song;
 import com.innowise.fileapi.model.DownloadedFile;
 import com.innowise.fileapi.service.S3Service;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.UUID;
 
+@Slf4j
 @Service
 public class S3ServiceImpl implements S3Service {
 
@@ -28,7 +30,9 @@ public class S3ServiceImpl implements S3Service {
     }
 
     private void initializeBucket() {
+        log.info("Checking for a bucket existence");
         if (!amazonS3.doesBucketExistV2(s3BucketName)) {
+            log.info("There were no bucket, creating one");
             amazonS3.createBucket(s3BucketName);
         }
     }
@@ -40,6 +44,7 @@ public class S3ServiceImpl implements S3Service {
             amazonS3.putObject(s3BucketName, String.valueOf(key), file.getInputStream(), extractObjectMetadata(file));
             return new Song(file.getOriginalFilename(), S3, String.valueOf(key));
         } catch (IOException e) {
+            log.error("Error while uploading file to S3");
             throw new RuntimeException(e);
         }
     }
