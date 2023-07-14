@@ -56,7 +56,7 @@ public class LocalStorageServiceImpl implements LocalStorageService {
                 return DownloadedFile.builder()
                         .id(song.getFilePath())
                         .key(song.getName())
-                        .fileName(song.getName())
+                        .name(song.getName())
                         .contentLength(contentLength)
                         .inputStream(inputStream)
                         .build();

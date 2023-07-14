@@ -14,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Slf4j
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/files")
 @AllArgsConstructor
 public class SongController {
     private final SongService songService;
@@ -36,7 +36,7 @@ public class SongController {
         try {
             var downloadedFile = songService.downloadSong(id);
             log.info("File was downloaded successfully");
-            return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + downloadedFile.getFileName())
+            return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + downloadedFile.getName())
                     .contentLength(downloadedFile.getContentLength()).contentType(MediaType.APPLICATION_OCTET_STREAM)
                     .body(new InputStreamResource(downloadedFile.getInputStream()));
         } catch (Exception e) {

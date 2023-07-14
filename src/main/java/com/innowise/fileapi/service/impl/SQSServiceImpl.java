@@ -12,33 +12,35 @@ import software.amazon.awssdk.services.sqs.model.*;
 @RequiredArgsConstructor
 public class SQSServiceImpl implements SQSService {
 
-    private static final String queueName = "my-queue";
+    private static final String queueName = "file-api-queue";
     private final SqsClient sqsClient;
 
     @Override
     public void addIdInQueue(Long id) {
-        GetQueueUrlRequest getQueueUrlRequest = GetQueueUrlRequest.builder()
-                .queueName(queueName)
-                .build();
-        GetQueueUrlResponse getQueueUrlResponse = sqsClient.getQueueUrl(getQueueUrlRequest);
-        String queueUrl = getQueueUrlResponse.queueUrl();
-        if (queueUrl == null) {
+        try {
+            GetQueueUrlRequest getQueueUrlRequest = GetQueueUrlRequest.builder()
+                    .queueName(queueName)
+                    .build();
+            GetQueueUrlResponse getQueueUrlResponse = sqsClient.getQueueUrl(getQueueUrlRequest);
+            String queueUrl = getQueueUrlResponse.queueUrl();
+            sendMessageToQueue(queueUrl, id);
+        } catch (QueueDoesNotExistException e) {
             CreateQueueRequest createQueueRequest = CreateQueueRequest.builder()
                     .queueName(queueName)
                     .build();
-            CreateQueueResponse createQueueResponse = sqsClient.createQueue(createQueueRequest);
-            queueUrl = createQueueResponse.queueUrl();
-            log.info("New queue created: " + queueUrl);
-        } else {
-            log.info("Queue already exists: " + queueUrl);
+            String queueUrl = sqsClient.createQueue(createQueueRequest).queueUrl();
+            sendMessageToQueue(queueUrl, id);
         }
+        log.info("Message was uploaded in queue");
+    }
 
+    private void sendMessageToQueue(String queueUrl, Long id) {
         SendMessageRequest sendMessageRequest = SendMessageRequest.builder()
                 .queueUrl(queueUrl)
                 .messageBody(id.toString())
                 .build();
 
         sqsClient.sendMessage(sendMessageRequest);
-        log.info("Message was uploaded in queue");
     }
+
 }

@@ -10,7 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import static com.sun.activation.registries.LogSupport.log;
 
 @Slf4j
 @Service
@@ -25,12 +24,12 @@ public class SongServiceImpl implements SongService {
         try {
             var uploadedSong = s3Service.upload(file);
             repository.save(uploadedSong);
-            log("File uploaded in S3 storage");
+            log.info("File uploaded in S3 storage");
             return uploadedSong.getId();
         } catch (Exception e) {
             var uploadedSong = localStorageService.upload(file);
             repository.save(uploadedSong);
-            log("File uploaded in locally");
+            log.info("File uploaded locally");
             return uploadedSong.getId();
         }
     }
@@ -41,14 +40,18 @@ public class SongServiceImpl implements SongService {
             var song = repository.findById(id).orElseThrow(() -> new RuntimeException("There is no file with this id"));
             if (song.getStorageType().equals("S3")) {
                 log.info("File will be downloaded from s3");
-                return s3Service.download(song.getFilePath());
+                var downloadedFile = s3Service.download(song.getFilePath());
+                downloadedFile.setName(song.getName());
+                return downloadedFile;
             } else {
                 log.info("File will be downloaded from localstorage");
-                return localStorageService.download(song);
+                var downloadedFile = localStorageService.download(song);
+                downloadedFile.setName(song.getName());
+                return downloadedFile;
             }
         } catch (Exception e) {
             log.info("Error while uploading a file");
-            throw new RuntimeException("Error while uploading a file");
+            throw new RuntimeException("Error while downloading a file");
         }
     }
 }

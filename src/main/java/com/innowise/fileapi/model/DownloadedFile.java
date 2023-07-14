@@ -10,7 +10,7 @@ import java.io.InputStream;
 public class DownloadedFile {
     private String id;
     private String key;
-    private String fileName;
+    private String name;
     private Long contentLength;
     private InputStream inputStream;
 }
