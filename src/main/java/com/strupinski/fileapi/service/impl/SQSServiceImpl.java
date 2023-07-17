@@ -1,6 +1,6 @@
-package com.innowise.fileapi.service.impl;
+package com.strupinski.fileapi.service.impl;
 
-import com.innowise.fileapi.service.SQSService;
+import com.strupinski.fileapi.service.SQSService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

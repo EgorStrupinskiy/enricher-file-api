@@ -31,4 +31,4 @@ build/
 
 ### VS Code ###
 .vscode/
-/src/main/java/com/innowise/fileapi/upload/
+/src/main/java/com/strupinski/fileapi/upload/

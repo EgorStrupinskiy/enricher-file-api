@@ -1,8 +1,8 @@
-package com.innowise.fileapi.service.impl;
+package com.strupinski.fileapi.service.impl;
 
-import com.innowise.fileapi.entity.Song;
-import com.innowise.fileapi.model.DownloadedFile;
-import com.innowise.fileapi.service.LocalStorageService;
+import com.strupinski.fileapi.entity.Song;
+import com.strupinski.fileapi.model.DownloadedFile;
+import com.strupinski.fileapi.service.LocalStorageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

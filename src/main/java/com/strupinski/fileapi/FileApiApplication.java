@@ -1,4 +1,4 @@
-package com.innowise.fileapi;
+package com.strupinski.fileapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

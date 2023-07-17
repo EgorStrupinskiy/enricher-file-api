@@ -1,6 +1,6 @@
-package com.innowise.fileapi.service;
+package com.strupinski.fileapi.service;
 
-import com.innowise.fileapi.model.DownloadedFile;
+import com.strupinski.fileapi.model.DownloadedFile;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 

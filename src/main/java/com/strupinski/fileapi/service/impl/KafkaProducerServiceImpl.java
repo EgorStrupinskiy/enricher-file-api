@@ -1,13 +1,11 @@
-package com.innowise.fileapi.service.impl;
+package com.strupinski.fileapi.service.impl;
 
-import com.innowise.fileapi.service.KafkaProducerService;
+import com.strupinski.fileapi.service.KafkaProducerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
-
-import java.time.Instant;
 
 @Slf4j
 @Service
@@ -18,8 +16,8 @@ public class KafkaProducerServiceImpl implements KafkaProducerService {
     @Override
     public HttpStatus send(Long id) {
         try {
-            log.info("producing message to Kafka, topic=receiving-topic");
-            this.template.send("receiving-topic", Instant.now().toString());
+            log.info("producing message to Kafka, topic=file-api-topic");
+            this.template.send("file-api-topic", id.toString());
         } catch (Exception e) {
             return HttpStatus.INTERNAL_SERVER_ERROR;
         }

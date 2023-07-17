@@ -1,4 +1,4 @@
-package com.innowise.fileapi.configuration;
+package com.strupinski.fileapi.configuration;
 
 import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.services.s3.AmazonS3;

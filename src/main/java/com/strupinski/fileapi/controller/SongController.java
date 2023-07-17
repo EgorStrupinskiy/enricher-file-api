@@ -1,7 +1,7 @@
-package com.innowise.fileapi.controller;
+package com.strupinski.fileapi.controller;
 
-import com.innowise.fileapi.service.SQSService;
-import com.innowise.fileapi.service.SongService;
+import com.strupinski.fileapi.service.KafkaProducerService;
+import com.strupinski.fileapi.service.SongService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.InputStreamResource;
@@ -18,12 +18,12 @@ import org.springframework.web.multipart.MultipartFile;
 @AllArgsConstructor
 public class SongController {
     private final SongService songService;
-    private final SQSService sqsService;
+    private final KafkaProducerService kafkaProducerService;
 
     @PostMapping("/upload")
     public ResponseEntity<String> uploadFile(@RequestBody MultipartFile file) {
         try {
-            sqsService.addIdInQueue(songService.addSong(file));
+            kafkaProducerService.send(songService.addSong(file));
             log.info("Song id uploaded in queue");
             return ResponseEntity.ok().body("File uploaded successfully");
         } catch (Exception e) {

@@ -1,11 +1,11 @@
-package com.innowise.fileapi.service.impl;
+package com.strupinski.fileapi.service.impl;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.S3Object;
-import com.innowise.fileapi.entity.Song;
-import com.innowise.fileapi.model.DownloadedFile;
-import com.innowise.fileapi.service.S3Service;
+import com.strupinski.fileapi.entity.Song;
+import com.strupinski.fileapi.model.DownloadedFile;
+import com.strupinski.fileapi.service.S3Service;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.stereotype.Service;

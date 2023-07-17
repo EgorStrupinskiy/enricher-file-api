@@ -1,4 +1,4 @@
-package com.innowise.fileapi.model;
+package com.strupinski.fileapi.model;
 
 import lombok.Builder;
 import lombok.Data;

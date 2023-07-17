@@ -1,10 +1,10 @@
-package com.innowise.fileapi.service.impl;
+package com.strupinski.fileapi.service.impl;
 
-import com.innowise.fileapi.model.DownloadedFile;
-import com.innowise.fileapi.repository.ResourceRepository;
-import com.innowise.fileapi.service.LocalStorageService;
-import com.innowise.fileapi.service.S3Service;
-import com.innowise.fileapi.service.SongService;
+import com.strupinski.fileapi.model.DownloadedFile;
+import com.strupinski.fileapi.repository.ResourceRepository;
+import com.strupinski.fileapi.service.LocalStorageService;
+import com.strupinski.fileapi.service.S3Service;
+import com.strupinski.fileapi.service.SongService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

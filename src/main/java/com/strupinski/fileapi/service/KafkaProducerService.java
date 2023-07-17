@@ -1,4 +1,4 @@
-package com.innowise.fileapi.service;
+package com.strupinski.fileapi.service;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

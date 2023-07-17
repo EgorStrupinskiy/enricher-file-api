@@ -1,4 +1,4 @@
-package com.innowise.fileapi.entity;
+package com.strupinski.fileapi.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

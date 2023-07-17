@@ -1,6 +1,6 @@
-package com.innowise.fileapi.repository;
+package com.strupinski.fileapi.repository;
 
-import com.innowise.fileapi.entity.Song;
+import com.strupinski.fileapi.entity.Song;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

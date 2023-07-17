@@ -1,4 +1,4 @@
-package com.innowise.fileapi;
+package com.strupinski.fileapi;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

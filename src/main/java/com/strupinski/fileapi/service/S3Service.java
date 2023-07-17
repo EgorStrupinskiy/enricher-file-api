@@ -1,11 +1,9 @@
-package com.innowise.fileapi.service;
+package com.strupinski.fileapi.service;
 
-import com.innowise.fileapi.entity.Song;
-import com.innowise.fileapi.model.DownloadedFile;
+import com.strupinski.fileapi.entity.Song;
+import com.strupinski.fileapi.model.DownloadedFile;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.util.UUID;
 
 @Service
 public interface S3Service {

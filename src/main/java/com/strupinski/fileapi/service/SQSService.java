@@ -1,4 +1,4 @@
-package com.innowise.fileapi.service;
+package com.strupinski.fileapi.service;
 
 public interface SQSService {
     void addIdInQueue(Long id);

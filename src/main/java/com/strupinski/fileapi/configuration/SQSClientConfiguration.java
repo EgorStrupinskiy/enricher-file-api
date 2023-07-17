@@ -1,4 +1,4 @@
-package com.innowise.fileapi.configuration;
+package com.strupinski.fileapi.configuration;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
