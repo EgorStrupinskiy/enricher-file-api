@@ -38,7 +38,3 @@ Developers and clients can interact with the File API microservice by making HTT
 ## Contribution
 
 Contributions to the File API microservice or the entire Microservices Music Metadata Enrichment System are welcomed. Developers can contribute by opening issues, submitting pull requests, or improving the documentation.
-
-## License
-
-The File API microservice and the entire Microservices Music Metadata Enrichment System are licensed under the [MIT License](LICENSE).
