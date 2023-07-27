@@ -25,6 +25,7 @@ public class SQSServiceImpl implements SQSService {
             String queueUrl = getQueueUrlResponse.queueUrl();
             sendMessageToQueue(queueUrl, id);
         } catch (QueueDoesNotExistException e) {
+            log.info("Crating new queue");
             CreateQueueRequest createQueueRequest = CreateQueueRequest.builder()
                     .queueName(queueName)
                     .build();

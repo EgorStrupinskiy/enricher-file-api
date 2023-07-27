@@ -4,6 +4,7 @@ import com.strupinski.fileapi.entity.Song;
 import com.strupinski.fileapi.model.DownloadedFile;
 import com.strupinski.fileapi.service.LocalStorageService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,6 +14,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class LocalStorageServiceImpl implements LocalStorageService {
@@ -31,6 +33,7 @@ public class LocalStorageServiceImpl implements LocalStorageService {
             String absolutePath = projectRoot + File.separator + filePath;
             File directory = new File(folderPath);
             if (!directory.exists()) {
+                log.info("Creating upload directory");
                 directory.mkdirs();
             }
             file.transferTo(new File(absolutePath));
@@ -38,6 +41,7 @@ public class LocalStorageServiceImpl implements LocalStorageService {
             if (savedFile.exists()) {
                 return new Song(fileName, LOCALLY, absolutePath);
             } else {
+                log.error("Failed to save file locally");
                 throw new RuntimeException("Failed to save file");
             }
         } catch (IOException e) {
@@ -64,6 +68,7 @@ public class LocalStorageServiceImpl implements LocalStorageService {
                 throw new RuntimeException("Error while downloading file from localstorage");
             }
         } else {
+            log.error("File doesnt exist");
             throw new RuntimeException("There is no such file in localstorage");
         }
     }
